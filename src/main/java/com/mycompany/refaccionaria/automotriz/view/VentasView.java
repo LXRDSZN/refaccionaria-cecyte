@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.concurrent.ExecutionException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -65,7 +66,7 @@ public class VentasView extends JPanel {
     private final JTable productsTable = new JTable(productsModel);
     private final JTable cartTable = new JTable(cartModel);
     private final List<CartLine> cart = new ArrayList<>();
-    private List<Producto> availableProducts = List.of();
+    private List<Producto> availableProducts = new ArrayList<>();
 
     public VentasView(AppSession session, ProductoService productoService,
             VentaService ventaService, Runnable onDataChanged) {
@@ -196,7 +197,7 @@ public class VentasView extends JPanel {
             protected List<Producto> doInBackground() throws SQLException {
                 return productoService.search(session, searchField.getText()).stream()
                         .filter(product -> product.getStock() > 0)
-                        .toList();
+                        .collect(Collectors.toList());
             }
 
             @Override
@@ -312,7 +313,7 @@ public class VentasView extends JPanel {
                         line.product.getPrecio(),
                         line.product.getPrecio().multiply(BigDecimal.valueOf(line.quantity))
                 ))
-                .toList();
+                .collect(Collectors.toList());
         new SwingWorker<Venta, Void>() {
             @Override
             protected Venta doInBackground() throws SQLException {

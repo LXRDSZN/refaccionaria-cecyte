@@ -24,14 +24,14 @@ public class AuthService {
     }
 
     public Optional<AppSession> authenticate(String nombreUsuario, char[] password) throws SQLException {
-        if (nombreUsuario == null || nombreUsuario.isBlank() || password == null || password.length == 0) {
+        if (nombreUsuario == null || nombreUsuario.trim().isEmpty() || password == null || password.length == 0) {
             clear(password);
             return Optional.empty();
         }
 
         try {
             Optional<Usuario> usuario = usuarioDAO.findByUsername(nombreUsuario.trim());
-            if (usuario.isEmpty() || !BCrypt.checkpw(new String(password), usuario.get().getPasswordHash())) {
+            if (!usuario.isPresent() || !BCrypt.checkpw(new String(password), usuario.get().getPasswordHash())) {
                 return Optional.empty();
             }
             return Optional.of(new AppSession(usuario.get()));
@@ -47,7 +47,7 @@ public class AuthService {
 
         String username = System.getenv("INITIAL_ADMIN_USER");
         String password = System.getenv("INITIAL_ADMIN_PASSWORD");
-        if (username == null || username.isBlank() || password == null || password.length() < MIN_PASSWORD_LENGTH) {
+        if (username == null || username.trim().isEmpty() || password == null || password.length() < MIN_PASSWORD_LENGTH) {
             return Optional.empty();
         }
 
@@ -116,7 +116,7 @@ public class AuthService {
     }
 
     private void validateUsername(String nombreUsuario) {
-        if (nombreUsuario == null || nombreUsuario.isBlank() || nombreUsuario.trim().length() > 50) {
+        if (nombreUsuario == null || nombreUsuario.trim().isEmpty() || nombreUsuario.trim().length() > 50) {
             throw new IllegalArgumentException("El nombre de usuario es obligatorio y debe tener hasta 50 caracteres.");
         }
     }

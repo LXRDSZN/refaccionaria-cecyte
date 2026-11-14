@@ -24,12 +24,12 @@ public final class DatabaseConnection {
 
     private static String configuredUrl() {
         String explicitUrl = setting("db.url", "DB_URL", "");
-        if (!explicitUrl.isBlank()) {
+        if (!explicitUrl.trim().isEmpty()) {
             return explicitUrl;
         }
 
         String socket = setting("db.socket", "DB_SOCKET", "");
-        if (!socket.isBlank()) {
+        if (!socket.trim().isEmpty()) {
             return DEFAULT_URL + "?localSocket=" + socket;
         }
 
@@ -38,12 +38,12 @@ public final class DatabaseConnection {
 
     private static String setting(String property, String environmentVariable, String defaultValue) {
         String configuredProperty = System.getProperty(property);
-        if (configuredProperty != null && !configuredProperty.isBlank()) {
+        if (configuredProperty != null && !configuredProperty.trim().isEmpty()) {
             return configuredProperty;
         }
 
         String configuredEnvironment = System.getenv(environmentVariable);
-        if (configuredEnvironment != null && !configuredEnvironment.isBlank()) {
+        if (configuredEnvironment != null && !configuredEnvironment.trim().isEmpty()) {
             return configuredEnvironment;
         }
 

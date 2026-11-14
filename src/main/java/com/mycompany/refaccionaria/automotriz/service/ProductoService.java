@@ -25,7 +25,7 @@ public class ProductoService {
 
     public List<Producto> search(AppSession session, String term) throws SQLException {
         session.requireAuthenticated();
-        return term == null || term.isBlank() ? productoDAO.findAll() : productoDAO.search(term);
+        return term == null || term.trim().isEmpty() ? productoDAO.findAll() : productoDAO.search(term);
     }
 
     public Producto create(AppSession session, Producto producto) throws SQLException {
@@ -66,7 +66,7 @@ public class ProductoService {
         }
         productoDAO.findById(productoId)
                 .orElseThrow(() -> new IllegalArgumentException("El producto no existe."));
-        try (var connection = com.mycompany.refaccionaria.automotriz.config.DatabaseConnection.getConnection()) {
+        try (java.sql.Connection connection = com.mycompany.refaccionaria.automotriz.config.DatabaseConnection.getConnection()) {
             productoDAO.updateStock(connection, productoId, newStock);
         }
     }
@@ -94,6 +94,6 @@ public class ProductoService {
     }
 
     private boolean isBlank(String value) {
-        return value == null || value.isBlank();
+        return value == null || value.trim().isEmpty();
     }
 }

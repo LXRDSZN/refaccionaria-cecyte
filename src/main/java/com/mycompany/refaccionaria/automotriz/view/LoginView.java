@@ -186,7 +186,7 @@ public class LoginView extends JFrame {
     private void authenticate() {
         String username = usernameField.getText().trim();
         char[] password = passwordField.getPassword();
-        if (username.isBlank() || password.length == 0) {
+        if (username.trim().isEmpty() || password.length == 0) {
             feedbackLabel.setText("Completa usuario y contraseña.");
             return;
         }
@@ -202,7 +202,7 @@ public class LoginView extends JFrame {
             protected void done() {
                 try {
                     Optional<AppSession> session = get();
-                    if (session.isEmpty()) {
+                    if (!session.isPresent()) {
                         feedbackLabel.setText("No se pudieron validar las credenciales.");
                         passwordField.setText("");
                         return;

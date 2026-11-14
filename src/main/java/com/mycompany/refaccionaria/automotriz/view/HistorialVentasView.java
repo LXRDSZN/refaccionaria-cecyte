@@ -152,7 +152,7 @@ public class HistorialVentasView extends JPanel {
 
     private Integer parseSaleId() {
         String value = saleIdField.getText().trim();
-        if (value.isBlank()) {
+        if (value.trim().isEmpty()) {
             return null;
         }
         try {
@@ -167,7 +167,7 @@ public class HistorialVentasView extends JPanel {
     }
 
     private LocalDate parseDate(String value) {
-        if (value == null || value.isBlank()) {
+        if (value == null || value.trim().isEmpty()) {
             return null;
         }
         try {

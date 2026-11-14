@@ -305,7 +305,7 @@ public class UsuariosView extends JPanel {
         private void save() {
             username = usernameField.getText().trim();
             role = adminRadio.isSelected() ? Rol.ADMIN : Rol.EMPLEADO;
-            if (username.isBlank()) {
+            if (username.trim().isEmpty()) {
                 showWarning("El nombre de usuario es obligatorio.");
                 username = null;
                 return;
