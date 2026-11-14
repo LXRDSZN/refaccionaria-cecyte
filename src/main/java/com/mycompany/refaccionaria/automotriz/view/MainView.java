@@ -58,6 +58,7 @@ public class MainView extends JFrame {
     private void configureWindow() {
         setTitle("AUTO PARTS | Sistema de Refaccionaria Automotriz");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(ResourceImages.loadImage("/images/logo/auto-parts-logo.png"));
         setMinimumSize(new Dimension(980, 640));
         setSize(1180, 760);
         setLocationRelativeTo(null);
@@ -77,7 +78,11 @@ public class MainView extends JFrame {
         topBar.setBackground(TOPBAR);
         topBar.setBorder(BorderFactory.createEmptyBorder(14, 22, 14, 22));
 
-        JLabel brand = new JLabel("AUTO PARTS");
+        JLabel brand = new JLabel(
+                "AUTO PARTS",
+                ResourceImages.scaledIcon("/images/logo/auto-parts-logo.png", 82, 50),
+                JLabel.LEFT
+        );
         brand.setForeground(Color.WHITE);
         brand.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
         topBar.add(brand, BorderLayout.WEST);
@@ -102,6 +107,7 @@ public class MainView extends JFrame {
         userPanel.add(role, constraints);
 
         JButton logoutButton = new JButton("Cerrar sesión");
+        logoutButton.setIcon(ResourceImages.scaledIcon("/images/icons/logout.png", 18, 18));
         logoutButton.setForeground(Color.WHITE);
         logoutButton.setOpaque(false);
         logoutButton.setContentAreaFilled(false);
@@ -130,27 +136,31 @@ public class MainView extends JFrame {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.insets = new Insets(3, 0, 3, 0);
 
-        addNavigationButton("Dashboard", "dashboard", constraints, true);
+        addNavigationButton("Dashboard", "dashboard", "/images/icons/dashboard.png", constraints, true);
         if (controller.getSession().isAdmin()) {
-            addNavigationButton("Productos", "products", constraints, false);
-            addNavigationButton("Inventario", "inventory", constraints, false);
-            addNavigationButton("Ventas", "sales", constraints, false);
-            addNavigationButton("Historial de ventas", "history", constraints, false);
-            addNavigationButton("Usuarios", "users", constraints, false);
+            addNavigationButton("Productos", "products", "/images/icons/products.png", constraints, false);
+            addNavigationButton("Inventario", "inventory", "/images/icons/inventory.png", constraints, false);
+            addNavigationButton("Ventas", "sales", "/images/icons/sales.png", constraints, false);
+            addNavigationButton("Historial de ventas", "history", "/images/icons/history.png", constraints, false);
+            addNavigationButton("Usuarios", "users", "/images/icons/users.png", constraints, false);
         } else if (controller.getSession().getUsuario().getRol() == Rol.EMPLEADO) {
-            addNavigationButton("Consultar productos", "products", constraints, false);
-            addNavigationButton("Inventario", "inventory", constraints, false);
-            addNavigationButton("Ventas", "sales", constraints, false);
+            addNavigationButton("Consultar productos", "products", "/images/icons/products.png", constraints, false);
+            addNavigationButton("Inventario", "inventory", "/images/icons/inventory.png", constraints, false);
+            addNavigationButton("Ventas", "sales", "/images/icons/sales.png", constraints, false);
         }
 
         constraints.gridy = GridBagConstraints.RELATIVE;
         constraints.weighty = 1;
-        sidebar.add(new JPanel(), constraints);
+        JPanel sidebarFiller = new JPanel();
+        sidebarFiller.setBackground(SIDEBAR);
+        sidebarFiller.setOpaque(true);
+        sidebar.add(sidebarFiller, constraints);
         return sidebar;
     }
 
-    private void addNavigationButton(String label, String card, GridBagConstraints constraints, boolean selected) {
-        JButton button = new JButton(label);
+    private void addNavigationButton(String label, String card, String iconPath,
+            GridBagConstraints constraints, boolean selected) {
+        JButton button = new JButton(label, ResourceImages.scaledIcon(iconPath, 18, 18));
         button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setForeground(Color.WHITE);
         button.setBackground(selected ? SELECTED : SIDEBAR);

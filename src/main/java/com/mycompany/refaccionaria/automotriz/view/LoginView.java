@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.image.BufferedImage;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -55,6 +56,7 @@ public class LoginView extends JFrame {
     private void configureWindow() {
         setTitle("AUTO PARTS | Acceso");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(ResourceImages.loadImage("/images/logo/auto-parts-logo.png"));
         setMinimumSize(new Dimension(760, 500));
         setSize(900, 600);
         setLocationRelativeTo(null);
@@ -70,8 +72,11 @@ public class LoginView extends JFrame {
     }
 
     private JPanel buildBrandPanel() {
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(NAVY);
+        ImageBackgroundPanel panel = new ImageBackgroundPanel(
+                "/images/login/autoparts-background.png",
+                new Color(0x15, 0x23, 0x38, 190)
+        );
+        panel.setLayout(new GridBagLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(48, 48, 48, 48));
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -79,9 +84,7 @@ public class LoginView extends JFrame {
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(8, 0, 8, 0);
 
-        JLabel icon = new JLabel("AUTO");
-        icon.setForeground(new Color(0x93, 0xC5, 0xFD));
-        icon.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 28));
+        JLabel icon = new JLabel(ResourceImages.scaledIcon("/images/logo/auto-parts-logo.png", 210, 130));
         constraints.gridy = 0;
         panel.add(icon, constraints);
 

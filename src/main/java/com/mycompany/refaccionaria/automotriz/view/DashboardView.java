@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -88,13 +89,13 @@ public class DashboardView extends JPanel {
         JPanel metrics = new JPanel(new GridLayout(1, session.isAdmin() ? 4 : 2, 12, 0));
         metrics.setOpaque(false);
         if (session.isAdmin()) {
-            metrics.add(metric("Productos registrados", totalProductsLabel));
-            metrics.add(metric("Stock bajo", lowStockLabel));
-            metrics.add(metric("Ventas del día", salesTodayLabel));
-            metrics.add(metric("Ingresos del día", revenueTodayLabel));
+            metrics.add(metric("Productos registrados", totalProductsLabel, "/images/icons/products.png"));
+            metrics.add(metric("Stock bajo", lowStockLabel, "/images/icons/warning.png"));
+            metrics.add(metric("Ventas del día", salesTodayLabel, "/images/icons/sales.png"));
+            metrics.add(metric("Ingresos del día", revenueTodayLabel, "/images/icons/currency.png"));
         } else {
-            metrics.add(metric("Productos disponibles", availableLabel));
-            metrics.add(metric("Productos agotados", outOfStockLabel));
+            metrics.add(metric("Productos disponibles", availableLabel, "/images/icons/products.png"));
+            metrics.add(metric("Productos agotados", outOfStockLabel, "/images/icons/warning.png"));
         }
         content.add(metrics, BorderLayout.NORTH);
 
@@ -116,7 +117,7 @@ public class DashboardView extends JPanel {
         add(content, BorderLayout.CENTER);
     }
 
-    private JPanel metric(String title, JLabel value) {
+    private JPanel metric(String title, JLabel value, String iconPath) {
         JPanel panel = new JPanel(new BorderLayout(0, 6));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createCompoundBorder(
@@ -124,6 +125,8 @@ public class DashboardView extends JPanel {
                 BorderFactory.createEmptyBorder(14, 16, 14, 16)
         ));
         JLabel titleLabel = new JLabel(title);
+        titleLabel.setIcon(ResourceImages.scaledIcon(iconPath, 18, 18));
+        titleLabel.setIconTextGap(8);
         titleLabel.setForeground(MUTED);
         titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         value.setForeground(TEXT);

@@ -13,6 +13,7 @@ com/mycompany/refaccionaria/automotriz/controller/MainController.class
 com/mycompany/refaccionaria/automotriz/service/DashboardService.class
 com/mycompany/refaccionaria/automotriz/view/VentasView$2.class
 com/mycompany/refaccionaria/automotriz/service/AppSession.class
+com/mycompany/refaccionaria/automotriz/view/ResourceImages.class
 com/mycompany/refaccionaria/automotriz/model/Usuario.class
 com/mycompany/refaccionaria/automotriz/view/InventarioView$1.class
 com/mycompany/refaccionaria/automotriz/view/DashboardView$1.class
@@ -32,6 +33,7 @@ com/mycompany/refaccionaria/automotriz/model/Venta.class
 com/mycompany/refaccionaria/automotriz/model/VentaResumen.class
 com/mycompany/refaccionaria/automotriz/dao/ProductoDAO.class
 com/mycompany/refaccionaria/automotriz/view/UsuariosView$SqlAction.class
+com/mycompany/refaccionaria/automotriz/view/ImageBackgroundPanel.class
 com/mycompany/refaccionaria/automotriz/model/Producto.class
 com/mycompany/refaccionaria/automotriz/dao/UsuarioDAO.class
 com/mycompany/refaccionaria/automotriz/view/UsuariosView$UserDialog.class
